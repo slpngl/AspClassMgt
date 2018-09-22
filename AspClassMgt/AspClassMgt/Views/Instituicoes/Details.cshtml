@@ -1,0 +1,42 @@
+﻿@model AspClassMgt.Models.Instituicao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Instituicao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nomeInstituicao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomeInstituicao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lgnInstituicao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lgnInstituicao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.snhInstituicao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.snhInstituicao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdInstituicao }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

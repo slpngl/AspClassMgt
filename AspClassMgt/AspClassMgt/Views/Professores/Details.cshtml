@@ -1,0 +1,42 @@
+﻿@model AspClassMgt.Models.Professor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Professor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.instituicaoProfessor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.instituicaoProfessor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeProfessor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeProfessor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Formacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Formacao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProfessor }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
