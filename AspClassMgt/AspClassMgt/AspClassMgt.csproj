@@ -167,6 +167,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAL\AlunoDAO.cs" />
+    <Compile Include="DAL\CursoDAO.cs" />
+    <Compile Include="DAL\InstituicaoDAO.cs" />
+    <Compile Include="DAL\ProfessorDAO.cs" />
+    <Compile Include="DAL\Singleton.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,7 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DAL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
