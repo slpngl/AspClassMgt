@@ -38,5 +38,21 @@ namespace AspClassMgt.DAL
             ctx.Instituicao.Remove(instituicao);
             ctx.SaveChanges();
         }
+
+        public static Instituicao AutenticarLogin(string lgn, string snh) {
+            Instituicao instituicaoLogada = new Instituicao();
+    
+            List < Instituicao > lista = ListarInstituicao();
+            foreach (Instituicao i in lista)
+            {
+                if (i.lgnInstituicao.Equals(lgn)) {
+                    if (i.snhInstituicao.Equals(snh)) {
+                        instituicaoLogada = i;
+                    }
+                }                                   
+
+            }
+            return instituicaoLogada;
+        }
     }
 }

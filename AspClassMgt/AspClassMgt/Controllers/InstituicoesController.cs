@@ -114,6 +114,24 @@ namespace AspClassMgt.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult Login(Instituicao i)
+        {
+            if (ModelState.IsValid)
+            {
+                Instituicao logada = new Instituicao();
+                logada = InstituicaoDAO.AutenticarLogin(i.nomeInstituicao, i.snhInstituicao);
+                if (logada != null)
+                {
+                    Session["instituicaoID"] = logada.IdInstituicao;
+                    Session["instituicaoNome"] = logada.nomeInstituicao;
+                    return RedirectToAction("Index");
+                }
+
+            }
+            return View(i);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
