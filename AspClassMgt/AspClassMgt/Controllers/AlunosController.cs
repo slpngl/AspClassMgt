@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AspClassMgt.Models;
 using AspClassMgt.DAL;
+using AspClassMgt.Util;
 
 namespace AspClassMgt.Controllers
 {
@@ -18,7 +19,8 @@ namespace AspClassMgt.Controllers
         // GET: Alunos
         public ActionResult Index()
         {
-            return View(AlunoDAO.ListarAlunos());
+            int id = Sessao.RetornarID();
+            return View(AlunoDAO.ListaAlunoInstituicao(id));
         }
 
         // GET: Alunos/Details/5
@@ -51,6 +53,8 @@ namespace AspClassMgt.Controllers
         {
             if (ModelState.IsValid)
             {
+                int inst = Sessao.RetornarID();
+                aluno.instituicaoAluno = inst;
                 AlunoDAO.CadastrarAluno(aluno);
                 return RedirectToAction("Index");
             }

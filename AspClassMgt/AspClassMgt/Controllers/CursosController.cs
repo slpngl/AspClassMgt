@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AspClassMgt.Models;
 using AspClassMgt.DAL;
+using AspClassMgt.Util;
 
 namespace AspClassMgt.Controllers
 {
@@ -18,7 +19,8 @@ namespace AspClassMgt.Controllers
         // GET: Cursos
         public ActionResult Index()
         {
-            return View(CursoDAO.ListarCursos());
+            int id = Sessao.RetornarID();
+            return View(CursoDAO.ListaCursoInstituicao(id));
         }
 
         // GET: Cursos/Details/5
@@ -39,8 +41,9 @@ namespace AspClassMgt.Controllers
         // GET: Cursos/Create
         public ActionResult Create()
         {
-            var professores = db.Professor.ToList();
-            //   var professores = ProfessorDAO.ListarProfessors();
+            //var professores = db.Professor.ToList();
+            int idInstituição = Sessao.RetornarID();
+            var professores = ProfessorDAO.ListaProfessorInstituicao(idInstituição);
             List<SelectListItem> professoresList = new List<SelectListItem>();
             foreach (Professor item in professores)
             {
@@ -50,6 +53,7 @@ namespace AspClassMgt.Controllers
                     Value = item.IdProfessor.ToString()
                 });
             }
+
             ViewBag.Listaprofessores = professoresList;
             return View();
         }
@@ -63,6 +67,8 @@ namespace AspClassMgt.Controllers
         {
             if (ModelState.IsValid)
             {
+                int inst = Sessao.RetornarID();
+                curso.instituicaoCurso = inst;
                 CursoDAO.CadastrarCurso(curso);
                 return RedirectToAction("Index");
             }

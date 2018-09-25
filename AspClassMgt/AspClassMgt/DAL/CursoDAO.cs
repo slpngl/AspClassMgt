@@ -16,6 +16,21 @@ namespace AspClassMgt.DAL
             return ctx.Curso.ToList();
         }
 
+        public static List<Curso> ListaCursoInstituicao(int idInstituicao)
+        {
+            List<Curso> cursos = ListarCursos();
+            List<Curso> listaFiltrada = new List<Curso>();
+            foreach (Curso a in cursos)
+            {
+                if (a.instituicaoCurso == idInstituicao)
+                {
+                    listaFiltrada.Add(a);
+                }
+            }
+            return listaFiltrada;
+        }
+
+
         public static void CadastrarCurso(Curso curso)
         {
             ctx.Curso.Add(curso);

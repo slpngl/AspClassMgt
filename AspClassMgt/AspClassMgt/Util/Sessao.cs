@@ -19,7 +19,17 @@ namespace AspClassMgt.Util
             HttpContext.Current.Session.Add("instituicaoLogadaNome", nome);
             return true;
         }
-     
+
+        public static int RetornarID() {
+            string id = HttpContext.Current.Session["instituicaoLogadaID"].ToString();
+            return Convert.ToInt32(id);
+        }
+
+        public static string RetornarIntituicaoNome() {
+            string nome =  HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
+            return nome;
+        }
+
 
     }
 }

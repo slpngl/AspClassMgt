@@ -16,6 +16,22 @@ namespace AspClassMgt.DAL
             return ctx.Professor.ToList();
         }
 
+        public static List<Professor> ListaProfessorInstituicao(int idInstituicao)
+        {
+            List<Professor> professores = ListarProfessors();
+            List<Professor> listaFiltrada = new List<Professor>();
+            foreach (Professor a in professores)
+            {
+                if (a.instituicaoProfessor == idInstituicao)
+                {
+                    listaFiltrada.Add(a);
+                }
+            }
+            return listaFiltrada;
+        }
+
+
+
         public static void CadastrarProfessor(Professor professor)
         {
             ctx.Professor.Add(professor);

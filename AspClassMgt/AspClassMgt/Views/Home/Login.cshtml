@@ -2,14 +2,22 @@
 @model AspClassMgt.Models.Instituicao
 @{
     ViewBag.Title = "Login";
+
+    string instituicaoLogadaNome = "";
+    if (HttpContext.Current.Session["instituicaoLogadaNome"] != null)
+    {
+        instituicaoLogadaNome = HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
+    }
+    }
 }
+
 <h2>Login</h2>
 @using (Html.BeginForm("Login", "Home", FormMethod.Post))
 {
     //cria a tag do formulário
     @Html.AntiForgeryToken() // previne o ataque CSRF
     @Html.ValidationSummary(true)
-   
+
     <table>
         <tr>
             <td>@Html.LabelFor(a => a.lgnInstituicao)</td>
