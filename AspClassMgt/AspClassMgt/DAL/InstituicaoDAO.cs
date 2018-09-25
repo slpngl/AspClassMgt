@@ -45,12 +45,16 @@ namespace AspClassMgt.DAL
             List < Instituicao > lista = ListarInstituicao();
             foreach (Instituicao i in lista)
             {
-                if (i.lgnInstituicao.Equals(lgn)) {
-                    if (i.snhInstituicao.Equals(snh)) {
+                if (i.lgnInstituicao.Equals(lgn))
+                {
+                    if (i.snhInstituicao.Equals(snh))
+                    {
                         instituicaoLogada = i;
                     }
-                }                                   
-
+                }
+                else {
+                    instituicaoLogada = null;
+                }
             }
             return instituicaoLogada;
         }

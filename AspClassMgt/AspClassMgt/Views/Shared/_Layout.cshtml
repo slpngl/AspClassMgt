@@ -1,4 +1,11 @@
 ﻿<!DOCTYPE html>
+@{
+    string instituicaoLogadaNome = "";
+    if (HttpContext.Current.Session["instituicaoLogadaNome"] != null)
+    {
+        instituicaoLogadaNome = HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
+    }
+}
 <html>
 <head>
     <meta charset="utf-8" />
@@ -20,10 +27,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Alunos", "Index", "Alunos")</li>
+                    <li>@Html.ActionLink("Professores", "Index", "Professores")</li>
+                    <li>@Html.ActionLink("Cursos", "Index", "Cursos")</li>
                 </ul>
+                <div class="form-inline my-2 my-lg-0">
+                    @Html.ActionLink("Logout " + instituicaoLogadaNome, "Logout", "Home", new { id = 0 }, new { @class = "btn btn-secondary my-2 my-sm-0" })
+                </div>
             </div>
         </div>
     </div>

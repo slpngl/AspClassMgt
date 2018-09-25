@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AspClassMgt.Models;
 using AspClassMgt.DAL;
+using AspClassMgt.Util;
 
 namespace AspClassMgt.Controllers
 {
@@ -45,15 +46,29 @@ namespace AspClassMgt.Controllers
             {
                 Instituicao logada = new Instituicao();
                 logada = InstituicaoDAO.AutenticarLogin(i.lgnInstituicao, i.snhInstituicao);
-                if (logada != null) {
-                    Session["instituicaoLogadaID"] = logada.IdInstituicao.ToString();
-                    Session["instituicaoLogadaNome"] = logada.nomeInstituicao.ToString();
+                if (logada != null)
+                {
+                    string id = logada.IdInstituicao.ToString();
+                    string nome = logada.nomeInstituicao.ToString();
+
+                    Sessao.IniciarSessao(id,nome);
                     return RedirectToAction("Index");
                 }
+                if (logada == null)
+                {
+                    ModelState.AddModelError("", "Login ou senha inválidos!!");
+                }
+
             }
-                return View(i);
-            
+            return View(i);
         }
+
+        public ActionResult Logout(int id) {
+            Sessao.EncerrarSessao();
+            return RedirectToAction("Login");
+        }
+    
+
 
     }
     }
