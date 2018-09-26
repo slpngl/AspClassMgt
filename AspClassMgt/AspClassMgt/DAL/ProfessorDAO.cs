@@ -9,20 +9,20 @@ namespace AspClassMgt.DAL
 {
     public class ProfessorDAO
     {
-        private static Context ctx = Singleton.Instance.Context;
+        private  Context ctx = Singleton.Instance.Context;
 
-        public static List<Professor> ListarProfessors()
+        public  List<Professor> ListarProfessors()
         {
             return ctx.Professor.ToList();
         }
 
-        public static List<Professor> ListaProfessorInstituicao(int idInstituicao)
+        public IList<Professor> ListarProfessorInstituicao(int id)
         {
-            List<Professor> professores = ListarProfessors();
-            List<Professor> listaFiltrada = new List<Professor>();
+            IList<Professor> professores = ListarProfessors();
+            IList<Professor> listaFiltrada = new List<Professor>();
             foreach (Professor a in professores)
             {
-                if (a.instituicaoProfessor == idInstituicao)
+                if (a.instituicaoProfessor == id)
                 {
                     listaFiltrada.Add(a);
                 }
@@ -30,29 +30,33 @@ namespace AspClassMgt.DAL
             return listaFiltrada;
         }
 
-
-
-        public static void CadastrarProfessor(Professor professor)
+        public  Boolean CadastrarProfessor(Professor professor)
         {
             ctx.Professor.Add(professor);
             ctx.SaveChanges();
+            return true;
         }
 
-        public static Professor BuscarProfessorPorId(int? id)
+        public Professor EditarProfessor(Professor professor)
+        {
+            ctx.Entry(professor).State = EntityState.Modified;
+            ctx.SaveChanges();
+            return professor;
+        }
+
+        public Boolean RemoverProfessor(Professor professor)
+        {
+            ctx.Professor.Remove(professor);
+            ctx.SaveChanges();
+            return true;
+        }
+
+        public Professor BuscarProfessorPorId(int? id)
         {
             return ctx.Professor.Find(id);
         }
 
-        public static void EditarProfessor(Professor professor)
-        {
-            ctx.Entry(professor).State = EntityState.Modified;
-            ctx.SaveChanges();
-        }
-
-        public static void RemoverProfessor(Professor professor)
-        {
-            ctx.Professor.Remove(professor);
-            ctx.SaveChanges();
+   
+     
         }
     }
-}

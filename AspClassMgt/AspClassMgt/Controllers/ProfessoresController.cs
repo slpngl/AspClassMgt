@@ -7,20 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AspClassMgt.Models;
-using AspClassMgt.DAL;
+using AspClassMgt.BLL;
 using AspClassMgt.Util;
 
 namespace AspClassMgt.Controllers
 {
     public class ProfessoresController : Controller
+
     {
         private Context db = new Context();
+        ProfessorService professorService = new ProfessorService();
+        Sessao sessao = new Sessao();
 
         // GET: Professores
         public ActionResult Index()
         {
-            int id = Sessao.RetornarID();
-            return View(ProfessorDAO.ListaProfessorInstituicao(id));
+            int id = sessao.RetornarID();
+            IList<Professor> professores = professorService.ListarProfessorInstituicao(id);
+            return View(professores);
         }
 
         // GET: Professores/Details/5
@@ -30,7 +34,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Professor professor = ProfessorDAO.BuscarProfessorPorId(id);
+            Professor professor = professorService.BuscarProfessorId(id);
             if (professor == null)
             {
                 return HttpNotFound();
@@ -41,22 +45,20 @@ namespace AspClassMgt.Controllers
         // GET: Professores/Create
         public ActionResult Create()
         {
-
-            return View();
+            Professor professor = new Professor();
+            return View(professor);
         }
 
         // POST: Professores/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdProfessor,NomeProfessor,Formacao")] Professor professor)
         {
             if (ModelState.IsValid)
             {
-                int inst = Sessao.RetornarID();
+                int inst = sessao.RetornarID();
                 professor.instituicaoProfessor = inst;
-                ProfessorDAO.CadastrarProfessor(professor);
+                professorService.CadastrarProfessor(professor);
                 return RedirectToAction("Index");
             }
 
@@ -70,7 +72,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Professor professor = ProfessorDAO.BuscarProfessorPorId(id);
+            Professor professor = professorService.BuscarProfessorId(id);
             if (professor == null)
             {
                 return HttpNotFound();
@@ -87,7 +89,9 @@ namespace AspClassMgt.Controllers
         {
             if (ModelState.IsValid)
             {
-                ProfessorDAO.EditarProfessor(professor);
+                int inst = sessao.RetornarID();
+                professor.instituicaoProfessor = inst;
+                professorService.EditarProfessor(professor);
                 return RedirectToAction("Index");
             }
             return View(professor);
@@ -100,7 +104,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Professor professor = ProfessorDAO.BuscarProfessorPorId(id);
+            Professor professor = professorService.BuscarProfessorId(id);
             if (professor == null)
             {
                 return HttpNotFound();
@@ -113,8 +117,8 @@ namespace AspClassMgt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Professor professor = ProfessorDAO.BuscarProfessorPorId(id);
-            ProfessorDAO.RemoverProfessor(professor);
+            Professor professor = professorService.BuscarProfessorId(id);
+            professorService.RemoverProfessor(professor);
             return RedirectToAction("Index");
         }
 

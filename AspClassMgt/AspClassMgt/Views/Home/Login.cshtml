@@ -8,35 +8,22 @@
     {
         instituicaoLogadaNome = HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
     }
-    }
+}
 }
 
 <h2>Login</h2>
 @using (Html.BeginForm("Login", "Home", FormMethod.Post))
 {
-    //cria a tag do formulário
     @Html.AntiForgeryToken() // previne o ataque CSRF
     @Html.ValidationSummary(true)
 
-    <table>
-        <tr>
-            <td>@Html.LabelFor(a => a.lgnInstituicao)</td>
-            <td>@Html.TextBoxFor(a => a.lgnInstituicao)</td>
-            <td>@Html.ValidationMessageFor(a => a.lgnInstituicao)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(a => a.snhInstituicao)</td>
-            <td> @Html.PasswordFor(a => a.snhInstituicao) </td>
-            <td> @Html.ValidationMessageFor(a => a.snhInstituicao) </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit" value="Login" />
-            </td>
-            <td></td>
-        </tr>
-    </table>
+    @Html.Label("Login:");
+    @Html.TextBox("login");
+    @Html.Label("Senha:");
+    @Html.TextBox("senha");
+    <input type="submit" value="Login" />
+
+
 }
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")

@@ -9,16 +9,16 @@ namespace AspClassMgt.DAL
 {
     public class CursoDAO
     {
-        private static Context ctx = Singleton.Instance.Context;
+        private  Context ctx = Singleton.Instance.Context;
 
-        public static List<Curso> ListarCursos()
+        public  IList<Curso> ListarCursos()
         {
             return ctx.Curso.ToList();
         }
 
-        public static List<Curso> ListaCursoInstituicao(int idInstituicao)
+        public  IList<Curso> ListaCursoInstituicao(int idInstituicao)
         {
-            List<Curso> cursos = ListarCursos();
+            IList<Curso> cursos = ListarCursos();
             List<Curso> listaFiltrada = new List<Curso>();
             foreach (Curso a in cursos)
             {
@@ -30,28 +30,30 @@ namespace AspClassMgt.DAL
             return listaFiltrada;
         }
 
-
-        public static void CadastrarCurso(Curso curso)
+        public  Boolean CadastrarCurso(Curso curso)
         {
             ctx.Curso.Add(curso);
             ctx.SaveChanges();
+            return true;
         }
 
-        public static Curso BuscarCursoPorId(int? id)
+        public  Curso BuscarCursoPorId(int? id)
         {
             return ctx.Curso.Find(id);
         }
 
-        public static void EditarCurso(Curso curso)
+        public  Curso EditarCurso(Curso curso)
         {
             ctx.Entry(curso).State = EntityState.Modified;
             ctx.SaveChanges();
+            return curso;
         }
 
-        public static void RemoverCurso(Curso curso)
+        public  Boolean RemoverCurso(Curso curso)
         {
             ctx.Curso.Remove(curso);
             ctx.SaveChanges();
+            return true;
         }
     }
 }

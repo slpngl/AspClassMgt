@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AspClassMgt.Models;
-using AspClassMgt.DAL;
+using AspClassMgt.BLL;
      
 
 namespace AspClassMgt.Controllers
@@ -15,11 +15,13 @@ namespace AspClassMgt.Controllers
     public class InstituicoesController : Controller
     {
         private Context db = new Context();
+        InstituicaoService instituicaoService = new InstituicaoService();
 
         // GET: Instituicoes
         public ActionResult Index()
         {
-            return View(InstituicaoDAO.ListarInstituicao());
+            IList<Instituicao> instituicaos = instituicaoService.ListarInstituicao();
+            return View(instituicaos);
         }
 
         // GET: Instituicoes/Details/5
@@ -29,7 +31,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Instituicao instituicao = InstituicaoDAO.BuscarInstituicaoPorId(id);
+            Instituicao instituicao = instituicaoService.BuscarInstituicaoPorId(id);
             if (instituicao == null)
             {
                 return HttpNotFound();
@@ -40,19 +42,18 @@ namespace AspClassMgt.Controllers
         // GET: Instituicoes/Create
         public ActionResult Create()
         {
-            return View();
+            Instituicao instituicao = new Instituicao();
+            return View(instituicao);
         }
 
         // POST: Instituicoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdInstituicao,nomeInstituicao,lgnInstituicao,snhInstituicao")] Instituicao instituicao)
         {
             if (ModelState.IsValid)
             {
-                InstituicaoDAO.CadastrarInstituicao(instituicao);
+                instituicaoService.CadastrarInstituicao(instituicao);
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Instituicao instituicao = InstituicaoDAO.BuscarInstituicaoPorId(id);
+            Instituicao instituicao = instituicaoService.BuscarInstituicaoPorId(id);
             if (instituicao == null)
             {
                 return HttpNotFound();
@@ -75,15 +76,13 @@ namespace AspClassMgt.Controllers
         }
 
         // POST: Instituicoes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdInstituicao,nomeInstituicao,lgnInstituicao,snhInstituicao")] Instituicao instituicao)
         {
             if (ModelState.IsValid)
             {
-                InstituicaoDAO.EditarInstituicao(instituicao);
+                instituicaoService.EditarInstituicao(instituicao);
                 return RedirectToAction("Index");
             }
             return View(instituicao);
@@ -96,7 +95,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Instituicao instituicao = InstituicaoDAO.BuscarInstituicaoPorId(id);
+            Instituicao instituicao = instituicaoService.BuscarInstituicaoPorId(id);
             if (instituicao == null)
             {
                 return HttpNotFound();
@@ -109,27 +108,9 @@ namespace AspClassMgt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Instituicao instituicao = InstituicaoDAO.BuscarInstituicaoPorId(id);
-            InstituicaoDAO.RemoverInstituicao(instituicao);
+            Instituicao instituicao = instituicaoService.BuscarInstituicaoPorId(id);
+            instituicaoService.RemoverInstituicao(instituicao);
             return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public ActionResult Login(Instituicao i)
-        {
-            if (ModelState.IsValid)
-            {
-                Instituicao logada = new Instituicao();
-                logada = InstituicaoDAO.AutenticarLogin(i.nomeInstituicao, i.snhInstituicao);
-                if (logada != null)
-                {
-                    Session["instituicaoID"] = logada.IdInstituicao;
-                    Session["instituicaoNome"] = logada.nomeInstituicao;
-                    return RedirectToAction("Index");
-                }
-
-            }
-            return View(i);
         }
 
         protected override void Dispose(bool disposing)

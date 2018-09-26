@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AspClassMgt.Models;
-using AspClassMgt.DAL;
+using AspClassMgt.BLL;
 using AspClassMgt.Util;
 
 namespace AspClassMgt.Controllers
@@ -15,12 +15,16 @@ namespace AspClassMgt.Controllers
     public class CursosController : Controller
     {
         private Context db = new Context();
+        CursoService cursoService = new CursoService();
+        ProfessorService professorService = new ProfessorService();
+        Sessao sessao = new Sessao();
 
         // GET: Cursos
         public ActionResult Index()
         {
-            int id = Sessao.RetornarID();
-            return View(CursoDAO.ListaCursoInstituicao(id));
+            int id = sessao.RetornarID();
+            IList<Curso> cursosInstituicao = cursoService.ListaCursoInstituicao(id);
+            return View(cursosInstituicao);
         }
 
         // GET: Cursos/Details/5
@@ -30,7 +34,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Curso curso = CursoDAO.BuscarCursoPorId(id);
+            Curso curso = cursoService.BuscarCursoPorId(id);
             if (curso == null)
             {
                 return HttpNotFound();
@@ -41,10 +45,11 @@ namespace AspClassMgt.Controllers
         // GET: Cursos/Create
         public ActionResult Create()
         {
-            //var professores = db.Professor.ToList();
-            int idInstituição = Sessao.RetornarID();
-            var professores = ProfessorDAO.ListaProfessorInstituicao(idInstituição);
+            Curso curso = new Curso();
+            int idInstituição = sessao.RetornarID();
+            var professores = professorService.ListarProfessorInstituicao(idInstituição);
             List<SelectListItem> professoresList = new List<SelectListItem>();
+            //Para adicionar os elementos na selectlist downdrop
             foreach (Professor item in professores)
             {
                 professoresList.Add(new SelectListItem
@@ -55,7 +60,7 @@ namespace AspClassMgt.Controllers
             }
 
             ViewBag.Listaprofessores = professoresList;
-            return View();
+            return View(curso);
         }
 
         // POST: Cursos/Create
@@ -67,9 +72,9 @@ namespace AspClassMgt.Controllers
         {
             if (ModelState.IsValid)
             {
-                int inst = Sessao.RetornarID();
+                int inst = sessao.RetornarID();
                 curso.instituicaoCurso = inst;
-                CursoDAO.CadastrarCurso(curso);
+                cursoService.CadastrarCurso(curso);
                 return RedirectToAction("Index");
             }
 
@@ -83,7 +88,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Curso curso = CursoDAO.BuscarCursoPorId(id);
+            Curso curso = cursoService.BuscarCursoPorId(id);
             if (curso == null)
             {
                 return HttpNotFound();
@@ -92,15 +97,15 @@ namespace AspClassMgt.Controllers
         }
 
         // POST: Cursos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdCurso,NomeCurso,CargaHoraria")] Curso curso)
         {
             if (ModelState.IsValid)
             {
-                CursoDAO.EditarCurso(curso);
+                int inst = sessao.RetornarID();
+                curso.instituicaoCurso = inst;
+                cursoService.EditarCurso(curso);
                 return RedirectToAction("Index");
             }
             return View(curso);
@@ -113,7 +118,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Curso curso = db.Curso.Find(id);
+            Curso curso = cursoService.BuscarCursoPorId(id);
             if (curso == null)
             {
                 return HttpNotFound();
@@ -126,8 +131,8 @@ namespace AspClassMgt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Curso curso = CursoDAO.BuscarCursoPorId(id);
-            CursoDAO.RemoverCurso(curso);
+            Curso curso = cursoService.BuscarCursoPorId(id);
+            cursoService.RemoverCurso(curso);
             return RedirectToAction("Index");
         }
 

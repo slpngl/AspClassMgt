@@ -11,6 +11,8 @@ namespace AspClassMgt.Controllers
 {
     public class HomeController : Controller
     {
+        Sessao sessao = new Sessao();
+
         public ActionResult Index()
         {
             return View();
@@ -40,31 +42,16 @@ namespace AspClassMgt.Controllers
         // POST : LOGIN 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Instituicao i)
-        {
-            if (ModelState.IsValid) //verifica se é válido
+        public ActionResult Login(string login, string senha){
+            if (sessao.AutenticarLogin(login, senha) == true)
             {
-                Instituicao logada = new Instituicao();
-                logada = InstituicaoDAO.AutenticarLogin(i.lgnInstituicao, i.snhInstituicao);
-                if (logada != null)
-                {
-                    string id = logada.IdInstituicao.ToString();
-                    string nome = logada.nomeInstituicao.ToString();
-
-                    Sessao.IniciarSessao(id,nome);
-                    return RedirectToAction("Index");
-                }
-                if (logada == null)
-                {
-                    ModelState.AddModelError("", "Login ou senha inválidos!!");
-                }
-
+                return RedirectToAction("Index");
             }
-            return View(i);
+            return RedirectToAction("Login");
         }
 
         public ActionResult Logout(int id) {
-            Sessao.EncerrarSessao();
+            sessao.EncerrarSessao();
             return RedirectToAction("Login");
         }
     

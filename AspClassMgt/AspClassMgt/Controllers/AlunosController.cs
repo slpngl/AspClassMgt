@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AspClassMgt.Models;
-using AspClassMgt.DAL;
+using AspClassMgt.BLL;
 using AspClassMgt.Util;
 
 namespace AspClassMgt.Controllers
@@ -15,12 +15,15 @@ namespace AspClassMgt.Controllers
     public class AlunosController : Controller
     {
         private Context db = new Context();
+        AlunoService alunoService = new AlunoService();
+        Sessao sessao = new Sessao();
 
         // GET: Alunos
         public ActionResult Index()
         {
-            int id = Sessao.RetornarID();
-            return View(AlunoDAO.ListaAlunoInstituicao(id));
+            int id = sessao.RetornarID();
+            IList<Aluno> alunos = alunoService.ListarAlunosInstituicao(id);
+            return View(alunos);
         }
 
         // GET: Alunos/Details/5
@@ -30,7 +33,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Aluno aluno = AlunoDAO.BuscarAlunoPorId(id);
+            Aluno aluno = alunoService.BuscarAlunoPorId(id);
             if (aluno == null)
             {
                 return HttpNotFound();
@@ -41,21 +44,20 @@ namespace AspClassMgt.Controllers
         // GET: Alunos/Create
         public ActionResult Create()
         {
-            return View();
+            Aluno aluno = new Aluno();
+            return View(aluno);
         }
 
         // POST: Alunos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdAluno,Nome,Endereco")] Aluno aluno)
         {
             if (ModelState.IsValid)
             {
-                int inst = Sessao.RetornarID();
+                int inst = sessao.RetornarID();
                 aluno.instituicaoAluno = inst;
-                AlunoDAO.CadastrarAluno(aluno);
+                alunoService.CadastrarAluno(aluno);
                 return RedirectToAction("Index");
             }
 
@@ -69,7 +71,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Aluno aluno = AlunoDAO.BuscarAlunoPorId(id);
+            Aluno aluno = alunoService.BuscarAlunoPorId(id);
             if (aluno == null)
             {
                 return HttpNotFound();
@@ -85,7 +87,9 @@ namespace AspClassMgt.Controllers
         {
             if (ModelState.IsValid)
             {
-                AlunoDAO.EditarAluno(aluno);
+                int inst = sessao.RetornarID();
+                aluno.instituicaoAluno = inst;
+                alunoService.EditarAluno(aluno);
                 return RedirectToAction("Index");
             }
             return View(aluno);
@@ -98,7 +102,7 @@ namespace AspClassMgt.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Aluno aluno = AlunoDAO.BuscarAlunoPorId(id);
+            Aluno aluno = alunoService.BuscarAlunoPorId(id);
             if (aluno == null)
             {
                 return HttpNotFound();
@@ -111,8 +115,8 @@ namespace AspClassMgt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Aluno aluno = AlunoDAO.BuscarAlunoPorId(id);
-            AlunoDAO.RemoverAluno(aluno);
+            Aluno aluno = alunoService.BuscarAlunoPorId(id);
+            alunoService.RemoverAluno(aluno);
             return RedirectToAction("Index");
         }
 
