@@ -17,6 +17,12 @@ namespace AspClassMgt.Models
 
         public string Nome { get; set; }
 
-        public string Endereco { get; set; }
+        public string Rua { get; set; }
+
+        public string Bairro { get; set; }
+
+        public string Cidade { get; set; }
+
+        public string UF { get; set; }
     }
 }

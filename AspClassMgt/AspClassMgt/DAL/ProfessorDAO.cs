@@ -39,9 +39,18 @@ namespace AspClassMgt.DAL
 
         public Professor EditarProfessor(Professor professor)
         {
-            ctx.Entry(professor).CurrentValues.SetValues(professor);
-            ctx.Entry(professor).State = EntityState.Modified;
-            ctx.SaveChanges();
+            Professor p = ctx.Professor.Find(professor.IdProfessor);
+
+            p.NomeProfessor = professor.NomeProfessor;
+            p.instituicaoProfessor = professor.instituicaoProfessor;
+            p.Formacao = professor.Formacao;
+            p.Rua = professor.Rua;
+            p.Bairro = professor.Bairro;
+            p.Cidade = professor.Cidade;
+            p.UF = professor.UF;
+           // ctx.Entry(professor).State = EntityState.Modified;
+           ctx.SaveChanges();
+           
             return professor;
         }
 

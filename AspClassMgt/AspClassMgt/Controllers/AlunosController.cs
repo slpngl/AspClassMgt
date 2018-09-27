@@ -51,7 +51,7 @@ namespace AspClassMgt.Controllers
         // POST: Alunos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAluno,Nome,Endereco")] Aluno aluno)
+        public ActionResult Create([Bind(Include = "IdAluno,Nome,Rua,Bairro,Cidade,UF")] Aluno aluno)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace AspClassMgt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdAluno,Nome,Endereco")] Aluno aluno)
+        public ActionResult Edit([Bind(Include = "IdAluno,Nome,Rua,Bairro,Cidade,UF")] Aluno aluno)
         {
             if (ModelState.IsValid)
             {

@@ -15,32 +15,39 @@
 <table class="table table-striped" align="center">
     <thead>
         <tr>
-           <th>
+            <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Endereco)
-            </th>
             <th></th>
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Endereco)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.IdAluno }, new { @class = "btn btn-warning btn-large" })
-                    @Html.ActionLink("Detalhar", "Details", new { id = item.IdAluno }, new { @class = "btn btn-info btn-large" })
-                    @Html.ActionLink("Excluir", "Delete", new { id = item.IdAluno }, new { @class = "btn btn-danger btn-large" })
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bairro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UF)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.IdAluno }, new { @class = "btn btn-warning btn-large" })
+                @Html.ActionLink("Detalhar", "Details", new { id = item.IdAluno }, new { @class = "btn btn-info btn-large" })
+                @Html.ActionLink("Excluir", "Delete", new { id = item.IdAluno }, new { @class = "btn btn-danger btn-large" })
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

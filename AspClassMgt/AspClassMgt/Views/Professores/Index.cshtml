@@ -13,23 +13,30 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.instituicaoProfessor)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.NomeProfessor)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Formacao)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bairro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UF)
+            </th>
+
         </tr>
     </thead>
-@foreach (var item in Model) {
     <tbody>
+        @foreach (var item in Model)
+        {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.instituicaoProfessor)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NomeProfessor)
             </td>
@@ -37,12 +44,24 @@
                 @Html.DisplayFor(modelItem => item.Formacao)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Rua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bairro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UF)
+            </td>
+            <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.IdProfessor }, new { @class = "btn btn-warning btn-large" })
                 @Html.ActionLink("Detalhar", "Details", new { id = item.IdProfessor }, new { @class = "btn btn-info btn-large" })
                 @Html.ActionLink("Excluir", "Delete", new { id = item.IdProfessor }, new { @class = "btn btn-danger btn-large" })
+
             </td>
         </tr>
+        }
     </tbody>
-}
-
 </table>
