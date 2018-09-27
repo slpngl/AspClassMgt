@@ -1,45 +1,46 @@
 ﻿@model IEnumerable<AspClassMgt.Models.Aluno>
-
 @{
+    
     ViewBag.Title = "Index";
+    string nomeInstituicao = HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
 }
 
-<h2>Index</h2>
-
+<h2>Alunos de @Html.DisplayName(nomeInstituicao) </h2>
+<br>
+<br>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cadastrar", "Create", "" , new { @class = "btn btn-success btn-large" })
+
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.instituicaoAluno)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-striped" align="center">
+    <thead>
+        <tr>
+           <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdAluno }, new { @class = "btn btn-warning btn-large" })
+                    @Html.ActionLink("Detalhar", "Details", new { id = item.IdAluno }, new { @class = "btn btn-info btn-large" })
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.IdAluno }, new { @class = "btn btn-danger btn-large" })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.instituicaoAluno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Endereco)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdAluno }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdAluno }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdAluno })
-        </td>
-    </tr>
-}
-
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

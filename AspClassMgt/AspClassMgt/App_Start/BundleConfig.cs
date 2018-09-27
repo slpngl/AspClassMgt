@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace AspClassMgt
+namespace Layout
 {
     public class BundleConfig
     {

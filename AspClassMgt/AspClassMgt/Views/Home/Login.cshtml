@@ -1,5 +1,4 @@
-﻿
-@model AspClassMgt.Models.Instituicao
+﻿@model AspClassMgt.Models.Instituicao
 @{
     ViewBag.Title = "Login";
 
@@ -9,7 +8,7 @@
         instituicaoLogadaNome = HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
     }
 }
-}
+
 
 <h2>Login</h2>
 @using (Html.BeginForm("Login", "Home", FormMethod.Post))
@@ -19,12 +18,10 @@
 
     @Html.Label("Login:");
     @Html.TextBox("login");
+    <br><br>
     @Html.Label("Senha:");
     @Html.TextBox("senha");
-    <input type="submit" value="Login" />
+    // <input type="submit"  />
+    <button type="submit" classvalue="Login" class="btn btn-primary"> LOGIN </button>
 
-
-}
-@section Scripts{
-    @Scripts.Render("~/bundles/jqueryval")
 }

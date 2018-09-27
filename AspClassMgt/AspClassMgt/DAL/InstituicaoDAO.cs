@@ -9,7 +9,7 @@ namespace AspClassMgt.DAL
 {
     public class InstituicaoDAO
     {
-        private Context ctx = Singleton.Instance.Context;
+        private Context ctx = Singleton.Instance;
 
         public  IList<Instituicao> ListarInstituicao()
         {
@@ -31,6 +31,7 @@ namespace AspClassMgt.DAL
 
         public Instituicao EditarInstituicao(Instituicao instituicao)
         {
+            ctx.Entry(instituicao).CurrentValues.SetValues(instituicao);
             ctx.Entry(instituicao).State = EntityState.Modified;
             ctx.SaveChanges();
             return instituicao;

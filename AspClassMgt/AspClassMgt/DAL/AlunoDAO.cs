@@ -9,7 +9,7 @@ namespace AspClassMgt.DAL
 {
     public class AlunoDAO
     {
-        private  Context ctx = Singleton.Instance.Context;
+        private  Context ctx = Singleton.Instance;
 
         public  IList<Aluno> ListarAlunos()
         {
@@ -42,7 +42,12 @@ namespace AspClassMgt.DAL
 
         public Aluno EditarAluno(Aluno aluno)
         {
-            ctx.Entry(aluno).State = EntityState.Modified;
+            Aluno a = ctx.Aluno.Find(aluno.IdAluno);
+            a.Nome = aluno.Nome;
+            a.Endereco = aluno.Endereco;
+
+            //ctx.Entry(aluno).CurrentValues.SetValues(aluno);
+            ctx.Entry(a).State = EntityState.Modified;
             ctx.SaveChanges();
             return aluno;
         }

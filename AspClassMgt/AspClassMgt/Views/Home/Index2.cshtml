@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Index2";
+}
+
+<div class="jumbotron">
+
+    <table class="table table-bordered table-responsive table-hover" id="tblAlunos">
+        <tr>
+            <th>IdAluno</th>
+            <th>instituicaoAluno</th>
+            <th>Nome</th>
+            <th>Endereco</th>
+        </tr>
+    </table>
+
+
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Alunos</h2>
+        <div class="form-group busca-aluno">
+            <div class="col-md-10">
+                <label for="idAluno">Informe o ID do aluno</label>
+                <input class="form-control" type="text" name="idAluno" id="idAluno" />
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="buscaAluno()">Buscar aluno</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Professores</h2>
+        <div class="col-md-4">
+            <h2>Alunos</h2>
+            <div class="form-group busca-aluno">
+                <div class="col-md-10">
+                    <label for="idAluno">Informe o ID do aluno</label>
+                    <input class="form-control" type="text" name="idAluno" id="idAluno" />
+                </div>
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="buscaAluno()">Buscar aluno</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-4">
+        <h2>Cursos</h2>
+        <div class="col-md-4">
+            <h2>Alunos</h2>
+            <div class="form-group busca-aluno">
+                <div class="col-md-10">
+                    <label for="idAluno">Informe o ID do aluno</label>
+                    <input class="form-control" type="text" name="idAluno" id="idAluno" />
+                </div>
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="buscaAluno()">Buscar aluno</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval");
+}
+
+<!--  <script type="text/javascript">
+        function GetDadosFuncionarios() {
+
+          $.get('/Home/FuncionariosDados', {}, function (data) {
+              var tblFuncionario = $("#tblFuncionario");
+              $.each(data, function (index, item) {
+                  var tr = $("<tr></tr>");
+                  tr.html(("<td>" + item.FuncionarioId + "</td>")
+                      + " " + ("<td>" + item.Nome + "</td>")
+                      + " " + ("<td>" + item.Email + "</td>")
+                      + " " + ("<td>" + item.Salario + "</td>")
+                      + " " + ("<td>" + ToJavaScriptDate(item.Nascimento) + "</td>")
+                      + " " + ("<td>" + item.Sexo + "</td>")
+                      + " " + ("<td>" + item.Setor + "</td>"));
+                  tblFuncionario.append(tr);
+              });
+          });
+      }
+      </script>
+    -->
+
+<script language="javascript" type="text/javascript">
+
+        
+
+</script>
+
+<!--
+    <script language="javascript" type="text/javascript">
+        function buscaUsuario() {
+        var cpf = $('#Usu_cpf').val();
+
+        $.ajax({
+            url: '/api/UsuarioApi/GetUsuario',
+        method: 'GET',
+            data: {cpf: cpf },
+            success: function (data) {
+            $('.busca-usuario').addClass('hide');
+        $('.nome-usuario').val(data.Usu_login);
+        $('.id-usuario').val(data.Usu_id);
+        $('.lista-produtos').removeClass('hide');
+        console.log(data.Usu_id);
+    },
+            error: function (data) {
+            alert("CPF não encontrado em nosso sistema !");
+        }
+    });
+}
+</script>
+
+    -->

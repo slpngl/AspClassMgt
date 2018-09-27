@@ -65,18 +65,10 @@ namespace AspClassMgt.Controllers
         }
 
         // GET: Alunos/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        public ActionResult Edit(int id)
+        {           
             Aluno aluno = alunoService.BuscarAlunoPorId(id);
-            if (aluno == null)
-            {
-                return HttpNotFound();
-            }
-            return View(aluno);
+              return View(aluno);
         }
         // POST: Alunos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -87,6 +79,7 @@ namespace AspClassMgt.Controllers
         {
             if (ModelState.IsValid)
             {
+                //aluno.IdAluno = aluno.IdAluno;
                 int inst = sessao.RetornarID();
                 aluno.instituicaoAluno = inst;
                 alunoService.EditarAluno(aluno);

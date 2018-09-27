@@ -1,51 +1,61 @@
 ﻿@model IEnumerable<AspClassMgt.Models.Curso>
+@{
+
+    ViewBag.Title = "Index";
+    string nomeInstituicao = HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
+}
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Cursos de @Html.DisplayName(nomeInstituicao) </h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cadastrar", "Create", "", new { @class = "btn btn-success btn-large" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.instituicaoCurso)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NomeCurso)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CargaHoraria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CursoProfessor)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.instituicaoCurso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeCurso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CargaHoraria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CursoProfessor)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdCurso }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdCurso }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdCurso })
-        </td>
-    </tr>
-}
 
-</table>
+<table class="table table-striped" align="center">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.NomeCurso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CargaHoraria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CursoProfessor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    @foreach (var item in Model)
+    {
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeCurso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CargaHoraria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CursoProfessor)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.IdCurso }, new { @class = "btn btn-warning btn-large" })
+                @Html.ActionLink("Detalhar", "Details", new { id = item.IdCurso }, new { @class = "btn btn-info btn-large" })
+                @Html.ActionLink("Excluir", "Delete", new { id = item.IdCurso }, new { @class = "btn btn-danger btn-large" })
+
+
+            </td>
+        </tr>
+    </tbody>
+    }
+    </table>

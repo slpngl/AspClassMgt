@@ -9,7 +9,7 @@ namespace AspClassMgt.DAL
 {
     public class ProfessorDAO
     {
-        private  Context ctx = Singleton.Instance.Context;
+        private  Context ctx = Singleton.Instance;
 
         public  List<Professor> ListarProfessors()
         {
@@ -39,6 +39,7 @@ namespace AspClassMgt.DAL
 
         public Professor EditarProfessor(Professor professor)
         {
+            ctx.Entry(professor).CurrentValues.SetValues(professor);
             ctx.Entry(professor).State = EntityState.Modified;
             ctx.SaveChanges();
             return professor;

@@ -8,27 +8,18 @@ namespace AspClassMgt.DAL
 {
     public class Singleton
     {
-        private static readonly Singleton instance = new Singleton();
-        private readonly Context context;
+        private static Context instance;
 
-        private Singleton()
-        {
-            context = new Context();
-        }
-
-        public static Singleton Instance
+        public static Context Instance
         {
             get
             {
+                if (instance == null)
+                {
+                    instance = new Context();
+                }
+
                 return instance;
-            }
-        }
-
-        public Context Context
-        {
-            get
-            {
-                return context;
             }
         }
     }

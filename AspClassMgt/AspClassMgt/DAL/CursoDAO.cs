@@ -9,7 +9,7 @@ namespace AspClassMgt.DAL
 {
     public class CursoDAO
     {
-        private  Context ctx = Singleton.Instance.Context;
+        private  Context ctx = Singleton.Instance;
 
         public  IList<Curso> ListarCursos()
         {
@@ -44,6 +44,7 @@ namespace AspClassMgt.DAL
 
         public  Curso EditarCurso(Curso curso)
         {
+            ctx.Entry(curso).CurrentValues.SetValues(curso);
             ctx.Entry(curso).State = EntityState.Modified;
             ctx.SaveChanges();
             return curso;
