@@ -40,6 +40,22 @@ namespace AspClassMgt.DAL
             return ctx.Aluno.Find(id);
         }
 
+        public Aluno BuscarAlunoPorIdInstituicao(int? idAluno, int? idInstituicao)
+        {
+            IList<Aluno> alunos = ListarAlunos();
+            Aluno alunoFiltrado = new Aluno();
+            foreach (Aluno a in alunos)
+            {
+                if (a.instituicaoAluno == idInstituicao)
+                {
+                    if (a.IdAluno == idAluno) {
+                        alunoFiltrado = a;
+                    }
+                }
+            }
+            return alunoFiltrado;
+        }
+
         public Aluno EditarAluno(Aluno aluno)
         {
             Aluno a = ctx.Aluno.Find(aluno.IdAluno);

@@ -1,0 +1,132 @@
+﻿@model AspClassMgt.Models.Matricula
+
+@{
+    ViewBag.Title = "Create";
+    string nomeInstituicao = HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
+    string idInstituicao = HttpContext.Current.Session["instituicaoLogadaID"].ToString();
+}
+<div class"container">
+    <div class="row">
+        <div class="col-md-6">
+
+            <label>Informe o ID do aluno</label>
+            <input class="form-control" type="text" id="idBusca" />
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="BuscaAluno()">Buscar aluno</button>
+                <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="BuscaAlunoFiltrada()">Buscar aluno Instituicao</button>
+                <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="BuscaAlunoMatricula()">Buscar Matricula</button>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Matricula</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.InstituicaoIDMatricula, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.InstituicaoIDMatricula, new { htmlAttributes = new { id = "MATinstituicaoID", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.InstituicaoIDMatricula, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AlunoIDMatricula, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.AlunoIDMatricula, new { htmlAttributes = new { id = "MATalunoID", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AlunoIDMatricula, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CursoIDMatricula, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br>
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.CursoIDMatricula, (IEnumerable<SelectListItem>)ViewBag.cursosInstituicao, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CursoIDMatricula, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval");
+}
+<script language="javascript" type="text/javascript">
+    function BuscaAlunoFiltrada() {
+        var idAluno = $('#idBusca').val();
+        var idInstituicao = @idInstituicao;
+        $.ajax({
+            url: '/api/AlunoApi/GetAlunoInstituicao',
+            method: 'GET',
+            data: { idAluno: idAluno, idInstituicao: idInstituicao },
+            success: function (data) {
+                $('#idBusca').val(data.Nome);
+                console.log(data.IdAluno);
+                console.log(data.instituicaoAluno);
+            },
+            error: function (data) {
+                alert("ID não encontrado em nosso sistema !");
+            }
+        });
+    }
+</script>
+
+<script language="javascript" type="text/javascript">
+    function BuscaAlunoMatricula() {
+        var idAluno = $('#idBusca').val();
+        $.ajax({
+            url: '/api/AlunoApi/GetAluno',
+            method: 'GET',
+            data: { id: idAluno },
+            success: function (data) {
+                $('#idBusca').val(data.Nome);
+                $('#MATinstituicaoID').val(data.instituicaoAluno);
+                $('#MATalunoID').val(data.IdAluno);
+                console.log(data.instituicaoAluno);
+                console.log(data.IdAluno);
+            },
+            error: function (data) {
+                alert("ID não encontrado em nosso sistema !");
+            }
+        });
+    }
+</script>
+
+<script language="javascript" type="text/javascript">
+    function BuscaAluno() {
+        var idAluno = $('#idBusca').val();
+        $.ajax({
+            url: '/api/AlunoApi/GetAluno',
+            method: 'GET',
+            data: { id: idAluno },
+            success: function (data) {
+                $('#idBusca').val(data.Nome);
+                console.log(data.IdAluno);
+
+            },
+            error: function (data) {
+                alert("ID não encontrado em nosso sistema !");
+            }
+        });
+    }
+</script>

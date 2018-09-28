@@ -35,5 +35,8 @@ namespace AspClassMgt.BLL
             return alunoDAO.RemoverAluno(aluno);
         }
 
+        public Aluno BuscarAlunoPorIdInstituicao(int idAluno, int idInstituicao) {
+            return alunoDAO.BuscarAlunoPorIdInstituicao(idAluno, idInstituicao);
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AspClassMgt.Models;
-using AspClassMgt.DAL;
+using AspClassMgt.BLL;
 using AspClassMgt.Util;
 
 namespace AspClassMgt.Controllers
@@ -12,9 +12,13 @@ namespace AspClassMgt.Controllers
     public class HomeController : Controller
     {
         Sessao sessao = new Sessao();
+        CursoService cursoService = new CursoService();
+        MatriculaService matriculaService = new MatriculaService();
+
 
         public ActionResult Index()
         {
+          
             return View();
         }
 
@@ -50,7 +54,7 @@ namespace AspClassMgt.Controllers
         public ActionResult Login(string login, string senha){
             if (sessao.AutenticarLogin(login, senha) == true)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Create","Matriculas");
             }
             return RedirectToAction("Login");
         }
@@ -59,7 +63,28 @@ namespace AspClassMgt.Controllers
             sessao.EncerrarSessao();
             return RedirectToAction("Login");
         }
-    
+
+
+        public ActionResult Create()
+        {
+            return Index();
+        }
+        // POST: Matriculas/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "IdMatricula,InstituicaoIDMatricula,AlunoIDMatricula,CursoIDMatricula")] Matricula matricula)
+        {
+            if (ModelState.IsValid)
+            {
+               // matriculaService.CadastrarMatricula(matricula);
+                return RedirectToAction("Index");
+                
+            }
+
+            return View(matricula);
+        }
 
 
     }

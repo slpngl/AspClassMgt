@@ -1,22 +1,89 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Alunos</h2>
-       
-        
-    </div>
-    <div class="col-md-4">
-        <h2>Professores</h2>
-     
+﻿@model AspClassMgt.Models.Matricula
+@{
 
-    </div>
-    <div class="col-md-4">
-        <h2>Cursos</h2>
-     
+    ViewBag.Title = "Index";
+    string nomeInstituicao = HttpContext.Current.Session["instituicaoLogadaNome"].ToString();
+    string idInstituicao = HttpContext.Current.Session["instituicaoLogadaID"].ToString();
+}
 
+<h2>INDEX</h2>
+    <div class="col-md-6">
+        <div>
+            <h2>Alunos</h2>
+
+            <div class="col-md-6">
+                <label>Informe o ID do aluno</label>
+                <input class="form-control" type="text" id="idBusca" />
+           
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="BuscaAluno()">Buscar aluno</button>
+                <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="BuscaAlunoFiltrada()">Buscar aluno Instituicao</button>
+                <button type="button" class="btn btn-xs btn-primary busca-usuario" onclick="BuscaAlunoMatricula()">Buscar Matricula</button>
+            </div>
+        </div>
     </div>
-</div>
+    
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval");
+        }
+        <script language="javascript" type="text/javascript">
+    function BuscaAlunoFiltrada() {
+        var idAluno = $('#idBusca').val();
+        var idInstituicao = @idInstituicao;
+        $.ajax({
+            url: '/api/AlunoApi/GetAlunoInstituicao',
+            method: 'GET',
+            data: { idAluno: idAluno, idInstituicao: idInstituicao },
+            success: function (data) {
+                $('#idBusca').val(data.Nome);
+                console.log(data.IdAluno);
+                console.log(data.instituicaoAluno);
+            },
+            error: function (data) {
+                alert("ID não encontrado em nosso sistema !");
+            }
+        });
+    }
+        </script>
+
+        <script language="javascript" type="text/javascript">
+            function BuscaAlunoMatricula() {
+                var idAluno = $('#idBusca').val();
+                $.ajax({
+                    url: '/api/AlunoApi/GetAluno',
+                    method: 'GET',
+                    data: { id: idAluno },
+                    success: function (data) {
+                        $('#idBusca').val(data.Nome);
+                        $('#MATinstituicaoID').val(data.instituicaoAluno);
+                        $('#MATalunoID').val(data.IdAluno);
+                        console.log(data.instituicaoAluno);
+                        console.log(data.IdAluno);
+                    },
+                    error: function (data) {
+                        alert("ID não encontrado em nosso sistema !");
+                    }
+                });
+            }
+        </script>
+
+        <script language="javascript" type="text/javascript">
+            function BuscaAluno() {
+                var idAluno = $('#idBusca').val();
+                $.ajax({
+                    url: '/api/AlunoApi/GetAluno',
+                    method: 'GET',
+                    data: { id: idAluno },
+                    success: function (data) {
+                        $('#idBusca').val(data.Nome);
+                        console.log(data.IdAluno);
+
+                    },
+                    error: function (data) {
+                        alert("ID não encontrado em nosso sistema !");
+                    }
+                });
+            }
+        </script>

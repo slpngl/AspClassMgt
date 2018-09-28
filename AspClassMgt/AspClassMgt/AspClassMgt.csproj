@@ -169,16 +169,20 @@
     <Compile Include="BLL\AlunoService.cs" />
     <Compile Include="BLL\CursoService.cs" />
     <Compile Include="BLL\InstituicaoService.cs" />
+    <Compile Include="BLL\MatriculaService.cs" />
     <Compile Include="BLL\ProfessorService.cs" />
-    <Compile Include="Controllers\AlunosAPIController.cs" />
+    <Compile Include="Controllers\AlunoApiController.cs" />
     <Compile Include="Controllers\AlunosController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InsituicaoApiController.cs" />
     <Compile Include="Controllers\InstituicoesController.cs" />
+    <Compile Include="Controllers\MatriculasController.cs" />
     <Compile Include="Controllers\ProfessoresController.cs" />
     <Compile Include="DAL\AlunoDAO.cs" />
     <Compile Include="DAL\CursoDAO.cs" />
     <Compile Include="DAL\InstituicaoDAO.cs" />
+    <Compile Include="DAL\MatriculaDAO.cs" />
     <Compile Include="DAL\ProfessorDAO.cs" />
     <Compile Include="DAL\Singleton.cs" />
     <Compile Include="Global.asax.cs">
@@ -200,11 +204,24 @@
     <Compile Include="Migrations\201809271913586_enderecoProfessor.Designer.cs">
       <DependentUpon>201809271913586_enderecoProfessor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809281148581_tabelaMatricula.cs" />
+    <Compile Include="Migrations\201809281148581_tabelaMatricula.Designer.cs">
+      <DependentUpon>201809281148581_tabelaMatricula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809281204364_a1.cs" />
+    <Compile Include="Migrations\201809281204364_a1.Designer.cs">
+      <DependentUpon>201809281204364_a1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809281354026_changingcontext.cs" />
+    <Compile Include="Migrations\201809281354026_changingcontext.Designer.cs">
+      <DependentUpon>201809281354026_changingcontext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aluno.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Curso.cs" />
     <Compile Include="Models\Instituicao.cs" />
+    <Compile Include="Models\Matricula.cs" />
     <Compile Include="Models\Professor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Sessao.cs" />
@@ -272,6 +289,11 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Matriculas\Create.cshtml" />
+    <Content Include="Views\Matriculas\Delete.cshtml" />
+    <Content Include="Views\Matriculas\Details.cshtml" />
+    <Content Include="Views\Matriculas\Edit.cshtml" />
+    <Content Include="Views\Matriculas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -297,6 +319,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809271913586_enderecoProfessor.resx">
       <DependentUpon>201809271913586_enderecoProfessor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809281148581_tabelaMatricula.resx">
+      <DependentUpon>201809281148581_tabelaMatricula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809281204364_a1.resx">
+      <DependentUpon>201809281204364_a1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809281354026_changingcontext.resx">
+      <DependentUpon>201809281354026_changingcontext.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

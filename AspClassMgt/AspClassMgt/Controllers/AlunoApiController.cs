@@ -13,7 +13,7 @@ using AspClassMgt.Models;
 
 namespace AspClassMgt.Controllers
 {
-    public class AlunosAPIController : ApiController
+    public class AlunoApiController : ApiController
     {
         AlunoService alunoService = new AlunoService();
 
@@ -24,12 +24,26 @@ namespace AspClassMgt.Controllers
             return alunoService.ListarAlunos();
         }
 
-        // GET: api/Usuario/5
+        // GET: api/Aluno/5
         [HttpGet]
         [ResponseType(typeof(Aluno))]
         public IHttpActionResult GetAluno(int id)
         {
             Aluno aluno = alunoService.BuscarAlunoPorId(id);
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(aluno);
+        }
+
+        // GET: api/Aluno/5
+        [HttpGet]
+        [ResponseType(typeof(Aluno))]
+        public IHttpActionResult GetAlunoInstituicao(int idAluno, int idInstituicao)
+        {
+            Aluno aluno = alunoService.BuscarAlunoPorIdInstituicao(idAluno, idInstituicao);
             if (aluno == null)
             {
                 return NotFound();

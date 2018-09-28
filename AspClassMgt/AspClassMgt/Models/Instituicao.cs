@@ -12,7 +12,6 @@ namespace AspClassMgt.Models
     {
         [Key]
         public int IdInstituicao { get; set; }
-
         public string nomeInstituicao { get; set; }
         public string lgnInstituicao { get; set; }
         public string snhInstituicao { get; set; }

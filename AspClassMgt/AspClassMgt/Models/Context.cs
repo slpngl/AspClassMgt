@@ -12,6 +12,7 @@ namespace AspClassMgt.Models
         public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<Professor> Professor { get; set; }
         public virtual DbSet<Instituicao> Instituicao { get; set; }
+        public virtual DbSet<Matricula> Matricula { get; set; }
 
     }
 }
