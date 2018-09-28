@@ -175,7 +175,6 @@
     <Compile Include="Controllers\AlunosController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InsituicaoApiController.cs" />
     <Compile Include="Controllers\InstituicoesController.cs" />
     <Compile Include="Controllers\MatriculasController.cs" />
     <Compile Include="Controllers\ProfessoresController.cs" />
@@ -215,6 +214,18 @@
     <Compile Include="Migrations\201809281354026_changingcontext.cs" />
     <Compile Include="Migrations\201809281354026_changingcontext.Designer.cs">
       <DependentUpon>201809281354026_changingcontext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809281610593_Objetos.cs" />
+    <Compile Include="Migrations\201809281610593_Objetos.Designer.cs">
+      <DependentUpon>201809281610593_Objetos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809281634173_CursoMatricula.cs" />
+    <Compile Include="Migrations\201809281634173_CursoMatricula.Designer.cs">
+      <DependentUpon>201809281634173_CursoMatricula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809281839301_error.cs" />
+    <Compile Include="Migrations\201809281839301_error.Designer.cs">
+      <DependentUpon>201809281839301_error.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aluno.cs" />
@@ -291,8 +302,6 @@
     <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\Matriculas\Create.cshtml" />
     <Content Include="Views\Matriculas\Delete.cshtml" />
-    <Content Include="Views\Matriculas\Details.cshtml" />
-    <Content Include="Views\Matriculas\Edit.cshtml" />
     <Content Include="Views\Matriculas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +337,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809281354026_changingcontext.resx">
       <DependentUpon>201809281354026_changingcontext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809281610593_Objetos.resx">
+      <DependentUpon>201809281610593_Objetos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809281634173_CursoMatricula.resx">
+      <DependentUpon>201809281634173_CursoMatricula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809281839301_error.resx">
+      <DependentUpon>201809281839301_error.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -18,6 +18,8 @@ namespace AspClassMgt.Controllers
         MatriculaService matriculaService = new MatriculaService();
         Sessao sessao = new Sessao();
         CursoService cursoService = new CursoService();
+        InstituicaoService instituicaoService = new InstituicaoService();
+        AlunoService alunoService = new AlunoService();
 
 
         // GET: Matriculas
@@ -25,7 +27,7 @@ namespace AspClassMgt.Controllers
         {
             int id = sessao.RetornarID();
             IList<Matricula> matriculas = matriculaService.ListaMatriculaInstituicao(id);
-            return View();
+            return View(matriculas);
         }
 
         // GET: Matriculas/Details/5
@@ -69,8 +71,14 @@ namespace AspClassMgt.Controllers
         {
             if (ModelState.IsValid)
             {
+                Instituicao instituicaoMatricula = instituicaoService.BuscarInstituicaoPorId(matricula.InstituicaoIDMatricula);
+                matricula.InstituicaoMatricula = instituicaoMatricula;
+                Aluno alunoMatricula = alunoService.BuscarAlunoPorId(matricula.AlunoIDMatricula);
+                matricula.AlunoMatricula = alunoMatricula;
+                Curso cursoMatricula = cursoService.BuscarCursoPorId(matricula.CursoIDMatricula);
+                matricula.CursoMatricula = cursoMatricula;
                 matriculaService.CadastrarMatricula(matricula);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index");
             }
 
             return View(matricula);

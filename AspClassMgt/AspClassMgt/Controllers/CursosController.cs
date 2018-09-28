@@ -68,10 +68,12 @@ namespace AspClassMgt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdCurso,NomeCurso,CargaHoraria")] Curso curso)
+        public ActionResult Create([Bind(Include = "IdCurso,NomeCurso,CargaHoraria,CursoProfessor")] Curso curso)
         {
             if (ModelState.IsValid)
             {
+                Professor professorCurso = professorService.BuscarProfessorId(curso.CursoProfessor);
+                curso.CursoProfessorO = professorCurso;
                 int inst = sessao.RetornarID();
                 curso.instituicaoCurso = inst;
                 cursoService.CadastrarCurso(curso);
@@ -84,6 +86,21 @@ namespace AspClassMgt.Controllers
         // GET: Cursos/Edit/5
         public ActionResult Edit(int? id)
         {
+            int idInstituição = sessao.RetornarID();
+            var professores = professorService.ListarProfessorInstituicao(idInstituição);
+            List<SelectListItem> professoresList = new List<SelectListItem>();
+            //Para adicionar os elementos na selectlist downdrop
+            foreach (Professor item in professores)
+            {
+                professoresList.Add(new SelectListItem
+                {
+                    Text = item.NomeProfessor,
+                    Value = item.IdProfessor.ToString()
+                });
+            }
+
+            ViewBag.Listaprofessores = professoresList;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -63,8 +63,8 @@ namespace AspClassMgt.DAL
             a.Rua = aluno.Rua;
             a.Bairro = aluno.Bairro;
             a.Cidade = aluno.Cidade;
-            a.UF = aluno.UF;  
-            
+            a.UF = aluno.UF;
+
             //ctx.Entry(aluno).CurrentValues.SetValues(aluno);
             ctx.Entry(a).State = EntityState.Modified;
             ctx.SaveChanges();

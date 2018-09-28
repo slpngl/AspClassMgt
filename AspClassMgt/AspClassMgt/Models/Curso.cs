@@ -21,5 +21,7 @@ namespace AspClassMgt.Models
 
         public int CursoProfessor { get; set; }
 
+        public Professor CursoProfessorO { get; set; }
+
     }
 }

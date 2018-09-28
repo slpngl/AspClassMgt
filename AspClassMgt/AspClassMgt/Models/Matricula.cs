@@ -13,13 +13,18 @@ namespace AspClassMgt.Models
         [Key]
         public int IdMatricula { get; set; }
 
-        public int InstituicaoIDMatricula  { get; set; }
+        public int InstituicaoIDMatricula { get; set; }
+
+        public Instituicao InstituicaoMatricula { get; set; }
 
         public int AlunoIDMatricula { get; set; }
 
+        public Aluno AlunoMatricula { get; set; }
+
         public int CursoIDMatricula { get; set; }
 
-       
+        public Curso CursoMatricula { get; set; }
+
     }
 
 

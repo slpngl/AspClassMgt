@@ -43,9 +43,13 @@ namespace AspClassMgt.DAL
         }
 
         public  Curso EditarCurso(Curso curso)
-        {
-            ctx.Entry(curso).CurrentValues.SetValues(curso);
-            ctx.Entry(curso).State = EntityState.Modified;
+        {   Curso c = ctx.Curso.Find(curso.IdCurso);
+            c.NomeCurso = curso.NomeCurso;
+            c.instituicaoCurso = curso.instituicaoCurso;
+            c.CursoProfessor = curso.CursoProfessor;
+            c.CursoProfessorO = curso.CursoProfessorO;
+            c.CargaHoraria = curso.CargaHoraria;
+            ctx.Entry(c).State = EntityState.Modified;
             ctx.SaveChanges();
             return curso;
         }

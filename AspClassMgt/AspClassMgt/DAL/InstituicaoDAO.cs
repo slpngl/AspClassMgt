@@ -30,9 +30,11 @@ namespace AspClassMgt.DAL
         }
 
         public Instituicao EditarInstituicao(Instituicao instituicao)
-        {
-            ctx.Entry(instituicao).CurrentValues.SetValues(instituicao);
-            ctx.Entry(instituicao).State = EntityState.Modified;
+        {   Instituicao i = ctx.Instituicao.Find(instituicao.IdInstituicao);
+            i.lgnInstituicao = instituicao.lgnInstituicao;
+            i.snhInstituicao = instituicao.snhInstituicao;
+            i.nomeInstituicao = instituicao.nomeInstituicao;
+            ctx.Entry(i).State = EntityState.Modified;
             ctx.SaveChanges();
             return instituicao;
         }

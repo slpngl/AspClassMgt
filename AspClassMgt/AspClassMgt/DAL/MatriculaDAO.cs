@@ -64,11 +64,11 @@ namespace AspClassMgt.DAL
         {
             Matricula a = ctx.Matricula.Find(matricula.IdMatricula);
             a.AlunoIDMatricula = matricula.AlunoIDMatricula;
+            a.AlunoMatricula = matricula.AlunoMatricula;
             a.CursoIDMatricula = matricula.CursoIDMatricula;
+            a.CursoMatricula = matricula.CursoMatricula;
+            a.InstituicaoMatricula = matricula.InstituicaoMatricula;
             a.InstituicaoIDMatricula = matricula.InstituicaoIDMatricula;
-
-
-            //ctx.Entry(matricula).CurrentValues.SetValues(matricula);
             ctx.Entry(a).State = EntityState.Modified;
             ctx.SaveChanges();
             return matricula;

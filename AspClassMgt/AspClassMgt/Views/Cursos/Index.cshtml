@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.CargaHoraria)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CursoProfessor)
+                @Html.DisplayNameFor(model => model.CursoProfessorO.NomeProfessor)
             </th>
             <th></th>
         </tr>
@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.CargaHoraria)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CursoProfessor)
+                @Html.DisplayFor(modelItem => item.CursoProfessorO.NomeProfessor)
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.IdCurso }, new { @class = "btn btn-warning btn-large" })
